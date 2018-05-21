@@ -22,7 +22,7 @@ function _logfolder() {
 
 function _ytdl() {
   local URLS
-  URLS=$(curl )
+  URLS=$(curl https://raw.githubusercontent.com/The-OMG/youtube-dl_tools/master/Pluralsight/Pluralsight_coding_and_hardware_URLS.txt)
   local LOGFILE="$ytdlPATH/ytdl.log"
   local ARCHIVE="$ytdlPATH/ytdl-archive.txt"
   local pluralUSER='omg'
