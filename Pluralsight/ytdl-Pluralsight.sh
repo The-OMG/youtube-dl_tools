@@ -4,6 +4,8 @@
 
 # Global Vars
 PROJECT='Pluralsight'
+URLS=$(curl https://raw.githubusercontent.com/The-OMG/youtube-dl_tools/master/Pluralsight/Pluralsight_coding_and_hardware_URLS.txt)
+export URLS
 
 # Global directories
 ytdlPATH="$HOME/$PROJECT"
@@ -21,15 +23,12 @@ function _logfolder() {
 }
 
 function _ytdl() {
-  local URLS
-  URLS=$(curl https://raw.githubusercontent.com/The-OMG/youtube-dl_tools/master/Pluralsight/Pluralsight_coding_and_hardware_URLS.txt)
   local LOGFILE="$ytdlPATH/ytdl.log"
   local ARCHIVE="$ytdlPATH/ytdl-archive.txt"
   local pluralUSER='omg'
   local pluralPASS='omgsCoolPass'
   local proxyEMAIL='mrHaxor@aol.com'
   local proxyPASS='HaxorPass'
-
 
   ytdlARGS=(
     "--add-metadata"
@@ -63,3 +62,13 @@ function _ytdl() {
 
   youtube-dl "${ytdlARGS[@]}" | tee --append "$LOGFILE"
 }
+
+function _ytdl-Pluralsight() {
+  _logfolder
+  _ytdl
+}
+
+for i in $URLS; do
+  _ytdl-Pluralsight "$i" &
+  sleep 2200
+done
