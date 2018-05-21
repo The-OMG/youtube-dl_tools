@@ -37,14 +37,16 @@ function _youtubedl() {
   local DL="axel"
   local DLARGS="-n 15"
   local ytdlOUTPUT="$YTDLpath/%(uploader)s/%(upload_date)s_%(title)s.%(ext)s"
-  local ytdlARGS=("--add-metadata" "--all-subs" "--buffer-size 16k"
+  local ytdlARGS=(
+    "--add-metadata" "--all-subs" "--buffer-size 16k"
     "--console-title" "--convert-subs srt" "--download-archive $ARCHIVE"
     "--embed-subs" "--external-downloader ${DL[@]}" "--no-continue" "--no-part"
     "--external-downloader-args ${DLARGS[@]}" "--ignore-errors" "--verbose"
     "--fixup" "--fragment-retries infinite" "--hls-prefer-ffmpeg"
     "-o ${ytdlOUTPUT[@]}" "--playlist-random" "--prefer-ffmpeg"
     "--retries infinite" "--write-description" "--write-info-json"
-    "--write-annotations" "--write-all-thumbnails")
+    "--write-annotations" "--write-all-thumbnails"
+  )
   youtube-dl "${ytdlARGS[@]}" "$URL" | tee --append "$LOGFILE"
 }
 
